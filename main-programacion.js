@@ -1,6 +1,16 @@
+$(document).ready(function () {
+    $('.tecnioo-card-tecnico').each(function (i, v) {
+        var x = $(this).attr('href'),
+            y = $('#FechaAsignacion').val(),
+            concatenado = '&fechaAsignacion=';
+        $(this).attr('href', x + concatenado + y);
+    });
 
-    var today = moment();
-    var yesterday = moment(today).add(-1, 'days')
+});
+
+var today = moment();
+var yesterday = moment(today).add(-1, 'days');
+
     $("#FechaAsignacion").datetimepicker({
         useCurrent: false,
         minDate: yesterday,
@@ -79,7 +89,7 @@
                             }
                             var myId = this.idCall;
 
-                            tecnioo-js {
+                            $('.tecnioo-card').each(function (i, v) {
                                 var checkData = $(this).find('.custom-checkbox input').data('id');
                                 //console.log(checkData);
                                 if (checkData === myId) {
@@ -182,6 +192,13 @@
             markerAsignados[i].setMap(null);
         }
 
+        $('.tecnioo-card-tecnico').each(function (i, v) {
+            var x = $(this).attr('href'), 
+                indice = x.indexOf("&"),
+            xCortado = x.substr(0, indice),
+            concatenado = '&fechaAsignacion=';
+            $(this).attr('href', xCortado + concatenado + fecha);
+        });
 
         markerAsignados = [];
         $.ajax({

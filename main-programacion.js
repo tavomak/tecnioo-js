@@ -75,11 +75,6 @@ function initMap() {
                     idCall: positions[i].idLlamado
                 });
                 markerSinAsignar.push(marker);
-                targuet = $('input[type="checkbox"]');
-                google.maps.event.addListener(target, 'click', (function (marker, i) {
-                    console.log('funca')
-                }));
-
                 google.maps.event.addListener(marker, 'click', (function (marker, i) {
                     return function () {
                         var symbol = this.getIcon();
@@ -92,27 +87,35 @@ function initMap() {
                                 this.setIcon(pinSymbol('blue'));
                             }
                         }
-                        var myId = this.idCall;
+                        var myId = this.idCall,
+                        counter = 0;
 
                         $('.tecnioo-card').each(function (i, v) {
                             var checkData = $(this).find('.custom-checkbox input').data('id'),
                             checkDataPts = $(this).find('.custom-checkbox input').data('pts');
                             console.log(checkData);
+                            console.log(checkDataPts);
+
                             if (checkData === myId) {
                                 $(this).toggleClass('llamadoMarkerActivo');
                                 
                                 var chequeadoAnterior = $(this).find('input[type="checkbox"]').prop('checked');
 
                                 if (chequeadoAnterior) {
-                                    var resta = (this).find('input[type="checkbox"]');
+                                    //var resta = (this).find('input[type="checkbox"]');
                                     $(this).find('input[type="checkbox"]').prop('checked', false);
+                                    if (counter > 0){
+                                        counter -= checkDataPts;
+                                    }
                                 } else {
                                     $(this).find('input[type="checkbox"]').prop('checked', true);
                                     $(this).parent().prepend($(this));
+                                    counter += checkDataPts;
                                 }
                             }
 
                         });
+                        console.log(counter);
                         infowindow.setContent('#' + positions[i].idLlamado + ' ' + positions[i].direccion);
                         infowindow.open(map, marker);
                     }

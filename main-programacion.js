@@ -120,6 +120,10 @@ function initMap() {
                         infowindow.open(map, marker);
                     }
                 })(marker, i));
+
+                $('.custom-checkbox input[type="checkbox"]').click(function(){
+
+                });
             }
 
         },
